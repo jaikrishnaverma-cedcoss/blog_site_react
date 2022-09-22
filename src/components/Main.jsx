@@ -6,7 +6,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import Blogs from './Blogs';
 
 function Main(props) {
-    const [state, setState] = useState({ sessionId: -1, Credentials: [{ contact: "6456456", password: "123", username: "jai" }], cart: [], search: [], input: "", currentProductId: -1, session: "Sign In" })
+    const [state, setState] = useState({ sessionId: -1, Credentials: [{ contact: "6456456", password: "123", username: "jai" }], cart: [], search: [], input: "", currentProductId: -1, session: "Sign In" ,log:""})
     const navigate = useNavigate();
     const [currentBlog, setCurrent] = useState({})
     const [database, setData] = useState([{
@@ -35,12 +35,14 @@ function Main(props) {
     const LogOutHandler = () => {
         state.sessionId = -1
         state.session = 'Sign In'
+        state.log=""
         setState({ ...state })
     }
     const HandleSession = (ide) => {
         if (ide !== -1) {
             state.sessionId = ide
             state.session = state.Credentials[state.sessionId].username
+            state.log="LOG OUT"
             setState({ ...state })
             navigate("/");
         }
@@ -84,7 +86,7 @@ function Main(props) {
                     <Link to="admin"><button className="btn">ADMIN</button></Link>
                     <button className="btn">ABOUT</button>
                     <button className="btn">CONTACT US</button>
-                    <button className='btn' onClick={LogOutHandler}>LOG OUT</button>
+                    <button className='btn' onClick={LogOutHandler}>{state.log}</button>
                 </div>
             </div>
             <div className="navBody row flexSB clr5 w100 flexAIC" style={{ minHeight: "20px", marginTop: "4%" }}>
